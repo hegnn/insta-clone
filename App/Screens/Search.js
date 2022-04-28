@@ -9,11 +9,12 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {Posts} from '../Data/Posts';
-import {ScreenWidth} from '../Utils/const';
 import GridPost from '../Components/GridPost';
 
 const Search = () => {
   const [search, setSearch] = useState(false);
+  const [data, setData] = useState(Posts.slice(0, 5));
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
@@ -30,12 +31,24 @@ const Search = () => {
       <View style={{backgroundColor: 'white', flex: 1}}>
         {search ? (
           <FlatList
-            data={Posts.sort(() => (Math.random() > 0.5 ? 1 : -1))}
+            data={data}
             renderItem={({item}) => <GridPost item={item} />}
             numColumns={3}
+            keyExtractor={(item, index) => index}
+            onEndReached={() =>
+              setData([...data, ...Posts.slice(data.length, data.length + 5)])
+            }
+            onEndReachedThreshold={0.5}
           />
         ) : (
-          <Text> SEARCH E TIKLAYIN </Text>
+          <Text
+            style={{
+              textAlign: 'center',
+              fontWeight: 'bold',
+              fontSize: 25,
+            }}>
+            SEARCH E TIKLAYIN
+          </Text>
         )}
       </View>
     </SafeAreaView>

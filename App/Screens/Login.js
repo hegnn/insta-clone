@@ -43,7 +43,7 @@ const Login = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.input}>
         <TextInput
-          style={{flex: 1}}
+          style={styles.textInput}
           value={username}
           onChangeText={setUsername}
           placeholder="Kullanıcı Adı"
@@ -52,7 +52,7 @@ const Login = ({navigation}) => {
       </View>
       <View style={styles.input}>
         <TextInput
-          style={{flex: 1}}
+          style={styles.textInput}
           value={password}
           onChangeText={setPassword}
           placeholder="Şifre"
@@ -88,6 +88,12 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  textInput: {
+    flex: 1,
+    height: 20,
+    padding: 0,
   },
   button: {
     marginHorizontal: 25,
@@ -102,5 +108,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 15,
     fontWeight: 'bold',
+    lineHeight: 20,
   },
 });

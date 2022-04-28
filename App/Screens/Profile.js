@@ -13,10 +13,9 @@ const Profile = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView>
-      <Text>asdasd</Text>
-      <Pressable onPress={() => logout()}>
-        <Text>ÇIKIŞ</Text>
+    <SafeAreaView style={styles.container}>
+      <Pressable style={styles.button} onPress={() => logout()}>
+        <Text style={styles.buttonText}>ÇIKIŞ YAP</Text>
       </Pressable>
     </SafeAreaView>
   );
@@ -24,4 +23,25 @@ const Profile = ({navigation}) => {
 
 export default Profile;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  button: {
+    marginHorizontal: 25,
+    padding: 15,
+    borderRadius: 5,
+    marginBottom: 15,
+    backgroundColor: '#3c6bfa',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 15,
+    fontWeight: 'bold',
+    lineHeight: 20,
+  },
+});

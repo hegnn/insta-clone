@@ -6,11 +6,13 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {Posts} from '../Data/Posts';
 import Post from '../Components/Post';
 
 const Feed = () => {
+  const [data, setData] = useState(Posts.slice(0, 5));
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -48,9 +50,12 @@ const Feed = () => {
       </View>
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={Posts}
+        data={data}
         renderItem={({item}) => <Post item={item} />}
         keyExtractor={(item, index) => index}
+        onEndReached={() =>
+          setData([...data, ...Posts.slice(data.length, data.length + 5)])
+        }
       />
     </SafeAreaView>
   );

@@ -1,9 +1,18 @@
-import {StyleSheet, Text, View, Image, ScrollView} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  Pressable,
+} from 'react-native';
+import React, {useRef, useState} from 'react';
 import {ScreenWidth} from '../Utils/const';
 import Video from 'react-native-video';
 
 const Post = ({item}) => {
+  const [finished, setFinished] = useState(false);
+  const myVideo = useRef();
   return (
     <View style={styles.container}>
       <View style={styles.postHeader}>
@@ -23,17 +32,47 @@ const Post = ({item}) => {
         bounces={false}
         showsHorizontalScrollIndicator={false}
         pagingEnabled>
-        {item.image.map(image =>
+        {item.image.map((image, index) =>
           item.video ? (
             <Video
+              ref={myVideo}
               source={image}
               style={styles.image}
               muted={true}
-              //repeat={true}
+              resizeMode="contain"
+              onEnd={() => {
+                setFinished(true);
+              }}
             />
           ) : (
-            <Image source={image} style={styles.image} />
+            <Image source={image} style={styles.image} key={index.toString()} />
           ),
+        )}
+        {finished && (
+          <Pressable
+            onPress={() => {
+              setFinished(false);
+              myVideo.current.seek(0);
+            }}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{
+                color: 'white',
+                fontWeight: 'bold',
+                fontSize: 20,
+                borderWidth: 2,
+              }}>
+              TEKRAR
+            </Text>
+          </Pressable>
         )}
       </ScrollView>
       <View style={styles.bottomContainer}>
@@ -111,5 +150,9 @@ const styles = StyleSheet.create({
     width: 25,
     margin: 2,
   },
-  image: {width: ScreenWidth, aspectRatio: 1, backgroundColor: 'black'},
+  image: {
+    width: ScreenWidth,
+    aspectRatio: 1,
+    backgroundColor: 'black',
+  },
 });

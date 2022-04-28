@@ -12,6 +12,7 @@ const GridPost = ({item}) => {
           style={styles.image}
           muted={true}
           repeat={true}
+          maxBitRate={2000000}
         />
       ) : (
         <Image source={item.image[0]} style={styles.image} />
